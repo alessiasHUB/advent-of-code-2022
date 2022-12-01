@@ -1,10 +1,8 @@
-/* 
-DAY #1
-title: Calorie Counting 
-status: **
-*/
+// DAY #1
+// title: Calorie Counting 
+// status: **
 
-/* PART ONE */
+/* ----PART ONE---- */
 function mostCalories(list){
     let elves = []
     let count = 0
@@ -2282,21 +2280,34 @@ let data = `22243
 
 // convert data to string array
 function convertData(data){
-    console.log(data.split('\n'))
     return data.split('\n')
 }
 
 // test data in instructions
-let list = [1000,2000,3000, '',4000, '',5000,6000, '',7000,8000,9000, '',10000]
-console.log("\n------TESTING------")
-console.log(`expected to be: ${mostCalories(list)} equal to: 4`)
+let instructionData = `1000
+2000
+3000
 
+4000
+
+5000
+6000
+
+7000
+8000
+9000
+
+10000`
+list = convertData(instructionData)
+console.log("\n------TESTING------")
+console.log(`expected to be: ${mostCalories(list)} equal to: 2400 kcal`)
+
+// real data run
 list = convertData(data)
 console.log("\n------PART ONE------")
-console.log(`expected to be: ${mostCalories(list)} equal to: ?`)
+console.log(`result: ${mostCalories(list)}`)
 
-/* PART TWO */
-
+/* ----PART TWO---- */
 function topThree(){
     let elves = []
     let count = 0
@@ -2317,4 +2328,4 @@ function topThree(){
 }
 
 console.log("\n------PART TWO------")
-console.log(`expected to be: ${topThree(list)} equal to: ?`)
+console.log(`result: ${topThree(list)}`)
