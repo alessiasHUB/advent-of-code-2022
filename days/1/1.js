@@ -2,6 +2,8 @@
 // title: Calorie Counting 
 // status: **
 
+import data from "./data"
+
 /* ----PART ONE---- */
 function mostCalories(list){
     let elves = []
@@ -16,7 +18,7 @@ function mostCalories(list){
     }
     return Math.max(...elves)
 }
-
+/*
 // data given
 let data = `22243
 11899
@@ -2277,7 +2279,7 @@ let data = `22243
 3253
 2123
 4825`
-
+*/
 // convert data to string array
 function convertData(data){
     return data.split('\n')

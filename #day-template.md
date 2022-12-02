@@ -2,6 +2,8 @@
 // title: Challenge Name 
 // status: * or **
 
+import data from "./data"
+
 /* ----PART ONE---- */
 function nameOne(list){}
 
