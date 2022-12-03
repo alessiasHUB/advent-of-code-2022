@@ -2,7 +2,10 @@
 // title: Challenge Name 
 // status: * or **
 
-import data from "./data"
+/*
+const fs = require("fs");
+const lines = fs.readFileSync.("./input.txt","utf-8").split("\n");
+*/
 
 /* ----PART ONE---- */
 function nameOne(list){}
