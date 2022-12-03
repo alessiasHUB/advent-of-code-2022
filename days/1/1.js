@@ -1,6 +1,6 @@
 // DAY #1
 // title: Calorie Counting 
-// status: **
+// status: ⭐⭐
 
 import data from "./data"
 

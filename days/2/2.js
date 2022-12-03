@@ -1,8 +1,7 @@
 // DAY #2
 // title: Rock Paper Scissors
-// status: **
+// status: ⭐⭐
 
-// import failed, need to fix script
 const data = `A X
 A X
 B Y

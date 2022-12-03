@@ -17,7 +17,7 @@ function convertData(data){
 
 // test data in instructions
 let instructionData = ``
-list = convertData(instructionData)
+let list = convertData(instructionData)
 console.log("\n------TESTING------")
 console.log(`expected to be: ${nameOne(list)} equal to: ???`)
 
@@ -27,7 +27,7 @@ console.log("\n------PART ONE------")
 console.log(`result: ${nameOne(list)}`)
 
 /* ----PART TWO---- */
-function nameTwo(){}
+function nameTwo(list){}
 
 console.log("\n------PART TWO------")
 console.log(`result: ${nameTwo(list)}`)
