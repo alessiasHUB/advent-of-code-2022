@@ -4,7 +4,7 @@
 
 /*
 const fs = require("fs");
-const lines = fs.readFileSync.("./input.txt","utf-8").split("\n");
+const lines = fs.readFileSync.("./input.txt","utf-8").replace(/\r/g,"").split("\n");
 */
 
 /* ----PART ONE---- */

@@ -2,7 +2,8 @@
 // title: Calorie Counting 
 // status: ⭐⭐
 
-import data from "./data"
+const fs = require("fs");
+const data = fs.readFileSync("./days/1/data.txt","utf-8").toString().replace(/\r/g,"").split("\n");
 
 /* ----PART ONE---- */
 function mostCalories(list){
@@ -2305,9 +2306,8 @@ console.log("\n------TESTING------")
 console.log(`expected to be: ${mostCalories(list)} equal to: 2400 kcal`)
 
 // real data run
-list = convertData(data)
 console.log("\n------PART ONE------")
-console.log(`result: ${mostCalories(list)}`)
+console.log(`result: ${mostCalories(data)}`)
 
 /* ----PART TWO---- */
 function topThree(){
@@ -2330,4 +2330,4 @@ function topThree(){
 }
 
 console.log("\n------PART TWO------")
-console.log(`result: ${topThree(list)}`)
+console.log(`result: ${topThree(data)}`)

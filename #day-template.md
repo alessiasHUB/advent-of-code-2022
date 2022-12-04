@@ -2,10 +2,9 @@
 // title: Challenge Name 
 // status: * or **
 
-/*
 const fs = require("fs");
-const lines = fs.readFileSync.("./input.txt","utf-8").split("\n");
-*/
+const data = fs.readFileSync("./days/1/data.txt","utf-8").toString().replace(/\r/g,"").split("\n");
+
 
 /* ----PART ONE---- */
 function nameOne(list){}
