@@ -19,7 +19,7 @@ function convertData(data){
 
 // test data in instructions
 console.log("\n------TESTING, 1------")
-console.log(`expected: ${partOne(instructionList)} to equal: 2`)
+console.log(`expected: ${partOne(instructionList)} to equal: ??`)
 
 // real data run 
 console.log("\n------PART ONE------")
@@ -29,6 +29,6 @@ console.log(`result: ${partOne(input)}`)
 function partTwo(data){}
 
 console.log("\n------TESTING, 2------")
-console.log(`expected: ${partTwo(instructionList)} to equal: 4`)
+console.log(`expected: ${partTwo(instructionList)} to equal: ??`)
 console.log("\n------PART TWO------")
 console.log(`result: ${partTwo(input)}`) 
