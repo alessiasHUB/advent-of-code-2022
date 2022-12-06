@@ -3,7 +3,7 @@
 // status: ⭐⭐
 
 const fs = require("fs");
-const data = fs.readFileSync("./days/1/data.txt","utf-8").toString().replace(/\r/g,"").split("\n");
+const data = fs.readFileSync("./days/1/input.txt","utf-8").toString().replace(/\r/g,"").split("\n");
 
 /* ----PART ONE---- */
 function mostCalories(list){

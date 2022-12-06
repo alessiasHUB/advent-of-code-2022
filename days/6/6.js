@@ -1,6 +1,6 @@
-// DAY #
-// title: Challenge Name 
-// status: * or **
+// DAY #6
+// title:  
+// status: 
 
 // import data given
 const fs = require("fs");
