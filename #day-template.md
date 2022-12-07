@@ -4,7 +4,7 @@
 
 // import data given
 const fs = require("fs");
-const input = fs.readFileSync("./days/5/input.txt","utf-8").toString().replace(/\r/g,"").split("\n");
+const input = fs.readFileSync("./days/#/input.txt","utf-8").toString().replace(/\r/g,"").split("\n");
 
 let instructionData = ``
 let instructionList = convertData(instructionData)
