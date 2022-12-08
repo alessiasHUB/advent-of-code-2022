@@ -40,6 +40,7 @@ function partOne(data){
             sortObj[directory] = []
         }
     }
+    let countObj = JSON.parse(JSON.stringify(sortObj))
     // sorting the files and dir according to parent
     for (let i=0; i<data.length;i++){
         if (data[i].includes('cd')){
@@ -47,7 +48,6 @@ function partOne(data){
                 let directory = data[i].split(' ')[2]
                 for (let j=i+2; j<data.length; j++){
                     if (!data[j].includes('$')){
-                        console.log(data[j], directory)
                         sortObj[directory].push(data[j])
                     } else {
                         break;
@@ -56,9 +56,54 @@ function partOne(data){
             }
         }
     }
-    console.log(sortObj)
-    // calculate the size of each directory
-    
+    let memoryObj = JSON.parse(JSON.stringify(sortObj))
+    // calculate the number of directories
+    // var hasOwn = Object.prototype.hasOwnProperty;
+    // var count = 0;
+    // for (var k in sortObj) if (hasOwn.call(sortObj, k)) ++count
+    console.log(countObj);
+    // calculate the size of each directory based on num files
+    for (const [key, value] of Object.entries(sortObj)) {
+        for (let i=0; i<value.length;i++){
+            if (/\d/.test(value[i])){
+                let num = Number(value[i].split(' ')[0])
+                countObj[key].push(num)
+            } 
+        }
+    }
+    console.log(countObj);
+    // add to parent directories
+    for (const [key, value] of Object.entries(memoryObj)) {
+        for (let i=0; i<value.length ;i++){
+            console.log(value)
+            if (value[i].includes('dir')){
+                let dir = value[i].split(' ')[1]
+                let num = countObj[dir]
+                countObj[key].push(num)
+            }
+        }
+    }
+    console.log(sortObj, countObj);
+
+    let sumArr = [];
+    for (const [key, value] of Object.entries(countObj)){
+        let sum = 0;
+        for (let i=0; i<value.length; i++) {
+            if (!Array.isArray(value[i])){
+                sum += value[i]
+            } else {
+                for (let j=0; j<value[i].length; j++) {
+                    sum += value[i][j];
+                }
+            }
+        }
+        console.log(key,' :',sum)
+        if (sum<100000){
+            sumArr.push(sum)
+        }
+    }
+    console.log(sumArr)
+    return sumArr.reduce((a, b) => a + b, 0)
 }
 
 // test data in instructions
@@ -66,7 +111,6 @@ console.log("\n------TESTING, 1------")
 console.log(`expected: ${partOne(instructionData)} to equal: 95437`)
 
 // real data run 
-/*
 console.log("\n------PART ONE------")
 console.log(`result: ${partOne(input)}`)
 
