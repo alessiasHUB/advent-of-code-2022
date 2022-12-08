@@ -1,12 +1,11 @@
-// DAY #
-// title: Challenge Name 
+// DAY #7
+// title: No Space Left On Device 
 // status: * or **
 
 // import data given
 const fs = require("fs");
 const input = fs.readFileSync("./days/7/input.txt","utf-8").toString().replace(/\r/g,"").split("\n");
-
-let instructionData = `$ cd /
+const instructionData = `$ cd /
 $ ls
 dir a
 14848514 b.txt
@@ -38,8 +37,11 @@ function partOne(data){
         if (command.includes('cd') && !command.includes('..')){
             let directory = command.split(' ')[2]
             sortObj[directory] = []
+            console.log(directory)
         }
     }
+    console.log(sortObj)
+
     let countObj = JSON.parse(JSON.stringify(sortObj))
     // sorting the files and dir according to parent
     for (let i=0; i<data.length;i++){
@@ -57,11 +59,7 @@ function partOne(data){
         }
     }
     let memoryObj = JSON.parse(JSON.stringify(sortObj))
-    // calculate the number of directories
-    // var hasOwn = Object.prototype.hasOwnProperty;
-    // var count = 0;
-    // for (var k in sortObj) if (hasOwn.call(sortObj, k)) ++count
-    console.log(countObj);
+   
     // calculate the size of each directory based on num files
     for (const [key, value] of Object.entries(sortObj)) {
         for (let i=0; i<value.length;i++){
@@ -71,11 +69,10 @@ function partOne(data){
             } 
         }
     }
-    console.log(countObj);
+
     // add to parent directories
     for (const [key, value] of Object.entries(memoryObj)) {
         for (let i=0; i<value.length ;i++){
-            console.log(value)
             if (value[i].includes('dir')){
                 let dir = value[i].split(' ')[1]
                 let num = countObj[dir]
@@ -83,7 +80,6 @@ function partOne(data){
             }
         }
     }
-    console.log(sortObj, countObj);
 
     let sumArr = [];
     for (const [key, value] of Object.entries(countObj)){
@@ -97,12 +93,13 @@ function partOne(data){
                 }
             }
         }
-        console.log(key,' :',sum)
         if (sum<100000){
             sumArr.push(sum)
         }
     }
-    console.log(sumArr)
+
+    // add another for loop to check if the sub dir 
+    // was added, if not add it
     return sumArr.reduce((a, b) => a + b, 0)
 }
 
