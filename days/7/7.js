@@ -1,10 +1,14 @@
 // DAY #7
-// title: No Space Left On Device 
+// title: No Space Left On Device
 // status: * or **
 
 // import data given
 const fs = require("fs");
-const input = fs.readFileSync("./days/7/input.txt","utf-8").toString().replace(/\r/g,"").split("\n");
+const input = fs
+  .readFileSync("./days/7/input.txt", "utf-8")
+  .toString()
+  .replace(/\r/g, "")
+  .split("\n");
 const instructionData = `$ cd /
 $ ls
 dir a
@@ -27,89 +31,86 @@ $ ls
 4060174 j
 8033020 d.log
 5626152 d.ext
-7214296 k`.split('\n')
+7214296 k`.split("\n");
 
 /* ----PART ONE---- */
-function partOne(data){
-    // create list of directories
-    let sortObj = {}
-    for (let command of data){
-        if (command.includes('cd') && !command.includes('..')){
-            let directory = command.split(' ')[2]
-            sortObj[directory] = []
-            console.log(directory)
-        }
+/*------my function------*/
+function partOne(input) {
+  let lines = input;
+  const folders = {};
+  //-------------------------------store all the folder names
+  lines.filter((el) => {
+    if (el.includes("$ cd")) {
+      let dir = el.split(" ")[2];
+      if (dir !== "..") {
+        folders[dir] = [];
+      }
     }
-    console.log(sortObj)
-
-    let countObj = JSON.parse(JSON.stringify(sortObj))
-    // sorting the files and dir according to parent
-    for (let i=0; i<data.length;i++){
-        if (data[i].includes('cd')){
-            if (!data[i].includes('..')){
-                let directory = data[i].split(' ')[2]
-                for (let j=i+2; j<data.length; j++){
-                    if (!data[j].includes('$')){
-                        sortObj[directory].push(data[j])
-                    } else {
-                        break;
-                    }
-                }
-            }
+  });
+  //-------------------------------sort files (& sub-folders) to their folders
+  for (let i = 2; i < lines.length; i++) {
+    if (lines[i - 1].includes("ls")) {
+      let dir = lines[i - 2].split(" ")[2];
+      for (let j = i; j < lines.length; j++) {
+        if (lines[j].includes("dir")) {
+          let value = lines[j].split(" ")[1];
+          folders[dir].push(value);
+        } else if (lines[j].includes("$")) {
+          break;
+        } else {
+          let value = Number(lines[j].split(" ")[0]);
+          folders[dir].push(value);
         }
+        i++;
+      }
     }
-    let memoryObj = JSON.parse(JSON.stringify(sortObj))
-   
-    // calculate the size of each directory based on num files
-    for (const [key, value] of Object.entries(sortObj)) {
-        for (let i=0; i<value.length;i++){
-            if (/\d/.test(value[i])){
-                let num = Number(value[i].split(' ')[0])
-                countObj[key].push(num)
-            } 
+  }
+  //-------------------------------get size of each folder (recursion)
+  function replaceStrings(obj, key) {
+    if (!key) {
+      let keys = Object.keys(obj);
+      for (let i = 0; i < keys.length; i++) {
+        replaceStrings(obj, keys[i]);
+      }
+    } else {
+      for (let i = 0; i < obj[key].length; i++) {
+        let value = obj[key][i];
+        if (typeof value === "string") {
+          obj[key].splice(i, 1, ...obj[value]);
+          return replaceStrings(obj, key);
         }
+      }
     }
-
-    // add to parent directories
-    for (const [key, value] of Object.entries(memoryObj)) {
-        for (let i=0; i<value.length ;i++){
-            if (value[i].includes('dir')){
-                let dir = value[i].split(' ')[1]
-                let num = countObj[dir]
-                countObj[key].push(num)
-            }
-        }
+    return obj;
+  }
+  let result = replaceStrings(folders);
+  //-------------------------------sum all the files for each folder
+  function sumArrays(obj) {
+    let keys = Object.keys(obj);
+    for (let i = 0; i < keys.length; i++) {
+      let key = keys[i];
+      obj[key] = obj[key].reduce((sum, value) => sum + value, 0);
     }
-
-    let sumArr = [];
-    for (const [key, value] of Object.entries(countObj)){
-        let sum = 0;
-        for (let i=0; i<value.length; i++) {
-            if (!Array.isArray(value[i])){
-                sum += value[i]
-            } else {
-                for (let j=0; j<value[i].length; j++) {
-                    sum += value[i][j];
-                }
-            }
-        }
-        if (sum<100000){
-            sumArr.push(sum)
-        }
+    return obj;
+  }
+  let summedResult = sumArrays(result);
+  //-------------------------------sum all the folders less than 10'000
+  let sum = 0;
+  for (let key in summedResult) {
+    if (summedResult[key] <= 100000) {
+      sum += summedResult[key];
     }
-
-    // add another for loop to check if the sub dir 
-    // was added, if not add it
-    return sumArr.reduce((a, b) => a + b, 0)
+  }
+  return sum;
 }
 
 // test data in instructions
-console.log("\n------TESTING, 1------")
-console.log(`expected: ${partOne(instructionData)} to equal: 95437`)
+console.log("\n------TESTING, 1------");
+console.log(`expected: ${partOne(instructionData)} to equal: 95437`);
 
-// real data run 
-console.log("\n------PART ONE------")
-console.log(`result: ${partOne(input)}`)
+// real data run
+console.log("\n------PART ONE------");
+console.log(`result: ${partOne(input)}`); /*
 
 /* ----PART TWO---- */ /*
 function partTwo(data){}
